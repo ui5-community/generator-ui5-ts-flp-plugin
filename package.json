@@ -1,0 +1,66 @@
+{
+  "name": "generator-ui5-ts-flp-plugin",
+  "version": "0.0.1",
+  "description": "(Sub-)generator for a UI5 Fiori Launchpad Plugin",
+  "main": "generators/app/index.js",
+  "type": "module",
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "lint:staged": "lint-staged",
+    "format": "prettier --write .",
+    "format:staged": "pretty-quick --staged --verbose",
+    "test": "cd test && yo ../generators/app/index.js",
+    "prepare": "husky",
+    "hooks:pre-commit": "npm run format:staged && npm run lint:staged"
+  },
+  "keywords": [
+    "yeoman-generator",
+    "sap",
+    "sapui5",
+    "openui5",
+    "ui5",
+    "project-template",
+    "flp-plugin",
+    "fiori-launchpad-plugin"
+  ],
+  "author": "SAP (Amar Ubhe)",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ui5-community/generator-ui5-ts-flp-plugin.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ui5-community/generator-ui5-ts-flp-plugin/issues"
+  },
+  "homepage": "https://github.com/ui5-community/generator-ui5-ts-flp-plugin#readme",
+  "files": [
+    "helpers",
+    "generators"
+  ],
+  "dependencies": {
+    "chalk": "^5.3.0",
+    "glob": "^11.0.0",
+    "package-json": "^10.0.1",
+    "semver": "^7.6.3",
+    "upath": "^2.0.1",
+    "yeoman-generator": "^5.9.0",
+    "yosay": "^2.0.2"
+  },
+  "devDependencies": {
+    "@prettier/plugin-xml": "^3.4.1",
+    "eslint": "^9.9.1",
+    "eslint-plugin-jsdoc": "^50.2.2",
+    "globals": "^15.9.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.2.10",
+    "prettier": "^3.3.3",
+    "prettier-plugin-properties": "^0.3.0",
+    "pretty-quick": "^4.0.0",
+    "yeoman-assert": "^3.1.1",
+    "yeoman-test": "^8.3.0"
+  },
+  "overrides": {
+    "minimist": ">=1.2.6"
+  }
+}
