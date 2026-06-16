@@ -1,7 +1,7 @@
 {
   "name": "generator-ui5-ts-flp-plugin",
-  "version": "0.0.1",
-  "description": "(Sub-)generator for a UI5 Fiori Launchpad Plugin",
+  "version": "1.0.0",
+  "description": "Yeoman-based (sub-)generator for a basic UI5 Fiori plugin based on TypeScript",
   "main": "generators/app/index.js",
   "type": "module",
   "scripts": {
@@ -11,20 +11,18 @@
     "format": "prettier --write .",
     "format:staged": "pretty-quick --staged --verbose",
     "test": "cd test && yo ../generators/app/index.js",
-    "prepare": "husky",
+    "prepare": "node ./.husky/skip.js || husky",
     "hooks:pre-commit": "npm run format:staged && npm run lint:staged"
   },
   "keywords": [
     "yeoman-generator",
-    "sap",
-    "sapui5",
-    "openui5",
     "ui5",
-    "project-template",
-    "flp-plugin",
-    "fiori-launchpad-plugin"
+    "openui5",
+    "sapui5",
+    "application",
+    "typescript"
   ],
-  "author": "SAP (Amar Ubhe)",
+  "author": "Mario Kernich",
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
@@ -34,31 +32,28 @@
     "url": "https://github.com/ui5-community/generator-ui5-ts-flp-plugin/issues"
   },
   "homepage": "https://github.com/ui5-community/generator-ui5-ts-flp-plugin#readme",
-  "files": [
-    "helpers",
-    "generators"
-  ],
   "dependencies": {
-    "chalk": "^5.3.0",
-    "glob": "^11.0.0",
+    "chalk": "^5.6.2",
+    "glob": "13.0.6",
+    "or": "^0.2.0",
     "package-json": "^10.0.1",
-    "semver": "^7.6.3",
-    "upath": "^2.0.1",
-    "yeoman-generator": "^5.9.0",
-    "yosay": "^2.0.2"
+    "semver": "^7.8.4",
+    "upath": "3.0.7",
+    "yeoman-generator": "8.2.2",
+    "yosay": "3.0.0"
   },
   "devDependencies": {
-    "@prettier/plugin-xml": "^3.4.1",
-    "eslint": "^9.9.1",
-    "eslint-plugin-jsdoc": "^50.2.2",
-    "globals": "^15.9.0",
+    "@prettier/plugin-xml": "^3.4.2",
+    "eslint": "10.5.0",
+    "eslint-plugin-jsdoc": "63.0.4",
+    "globals": "17.6.0",
     "husky": "^9.1.7",
-    "lint-staged": "^15.2.10",
-    "prettier": "^3.3.3",
-    "prettier-plugin-properties": "^0.3.0",
-    "pretty-quick": "^4.0.0",
+    "lint-staged": "17.0.7",
+    "prettier": "^3.8.4",
+    "prettier-plugin-properties": "^0.3.1",
+    "pretty-quick": "^4.2.2",
     "yeoman-assert": "^3.1.1",
-    "yeoman-test": "^8.3.0"
+    "yeoman-test": "11.6.0"
   },
   "overrides": {
     "minimist": ">=1.2.6"

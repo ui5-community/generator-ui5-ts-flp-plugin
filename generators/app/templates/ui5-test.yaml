@@ -8,6 +8,14 @@ framework:
   libraries:
     - name: sap.m
     - name: sap.ui.core
+    - name: sap.ushell
+    - name: sap.tnt
+    - name: sap.ui.dt
+    - name: sap.ui.rta
+    - name: sap.uxap
+    - name: sap.suite.ui.generic.template
+    - name: sap.ui.generic.template
+    - name: sap.suite.ui.microchart
     - name: themelib_<%= defaultTheme %>
 builder:
   resources:

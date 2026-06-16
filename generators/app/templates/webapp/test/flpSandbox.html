@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+  <!-- Copyright (c) 2015 SAP AG, All Rights Reserved -->
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{appTitle}}</title>
+    <script type="text/javascript">
+      window["sap-ushell-config"] = {
+        defaultRenderer: "fiori2",
+		bootstrapPlugins: {
+			"RuntimeAuthoringPlugin": {
+				component: "sap.ushell.plugins.rta",
+				config: {
+					validateAppVersion: false
+				}
+			},
+			"PersonalizePlugin": {
+				component: "sap.ushell.plugins.rta-personalize",
+				config: {
+					validateAppVersion: false
+				}
+			},
+            FLPPluginAll: {
+                component: "<%= appId %>",
+                url: "../../../"
+            }
+		},
+		renderers: {
+			fiori2: {
+				componentData: {
+					config: {
+						enableSearch: false,
+						rootIntent: "Shell-home"
+					}
+				}
+			}
+		},
+		services: {
+			"LaunchPage": {
+				"adapter": {
+					"config": {
+						"groups": [{
+							"tiles": []
+						}]
+					}
+				}
+			},
+			"ClientSideTargetResolution": {
+				"adapter": {
+					"config": {
+						"inbounds": {}
+					}
+				}
+			},
+			NavTargetResolution: {
+				config: {
+					"enableClientSideTargetResolution": true
+				}
+			}
+		}
+      };
+    </script>
+    <script src="../test-resources/sap/ushell/bootstrap/sandbox.js" id="sap-ushell-bootstrap"></script>
+    <script
+      id="sap-ui-bootstrap"
+      src="../resources/sap-ui-core.js"
+      data-sap-ui-libs="sap.m,sap.ui.core,sap.f,sap.ushell"
+      data-sap-ui-async="true"
+      data-sap-ui-preload="async"
+      data-sap-ui-theme="sap_horizon"
+      data-sap-ui-compatVersion="edge"
+      data-sap-ui-language="en"
+      data-sap-ui-resourceroots='{
+        "<%= appId %>": "../"
+      }'
+      data-sap-ui-frameOptions="allow"
+      data-sap-ui-flexibilityServices='[{"connector": "LocalStorageConnector"}]'
+    ></script>
+    <script>
+      sap.ui.getCore().attachInit(function () {
+        if (!sap.ushell || !sap.ushell.Container) {
+          throw new Error("FLP sandbox bootstrap failed: sap.ushell.Container is not available");
+        }
+
+        sap.ushell.Container.createRenderer("fiori2", true).then(function (oRenderer) {
+          oRenderer.placeAt("content");
+        });
+      });
+    </script>
+  </head>
+  <body class="sapUiBody" id="content"></body>
+</html>
