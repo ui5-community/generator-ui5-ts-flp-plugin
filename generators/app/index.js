@@ -9,12 +9,8 @@ import { glob } from "glob";
 import packageJson from "package-json";
 import semver from "semver";
 import upath from "upath";
-import path from "path";
 
 const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
-
-const webappTestDir = path.normalize("webapp/test/");
-const webappTestDir_lt1_124 = path.normalize("webapp/test-lt1_124/");
 
 export default class extends Generator {
   static displayName = "Create a new UI5 application with TypeScript";
@@ -157,14 +153,14 @@ export default class extends Generator {
 
     if (!this.options.frameworkVersion) {
       prompts.push({
-        when: (response) => {
+        when: () => {
           this._minFwkVersion = minFwkVersion["SAPUI5"];
           return true;
         },
         type: "input", // HINT: we could also use the version info from OpenUI5/SAPUI5 to provide a selection!
         name: "frameworkVersion",
         message: "Which framework version do you want to use?",
-        default: async (answers) => {
+        default: async () => {
           const npmPackage = getTypePackageFor("SAPUI5");
           try {
             return (
@@ -172,7 +168,7 @@ export default class extends Generator {
                 version: "*" // use highest version, not latest!
               })
             ).version;
-          } catch (ex) {
+          } catch {
             chalk.red(
               "Failed to lookup latest version for ${npmPackage}! Fallback to min version..."
             );

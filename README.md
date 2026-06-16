@@ -31,11 +31,11 @@ Note the different greeting when the generator starts:
 $> npm i -g yo
 $> yo ./generator-ui5-ts-flp-plugin
 
-     _-----_     ╭──────────────────────────╮
-    |       |    │      Welcome to the      │
+     _-----_     ╭─────────────────────────────────╮
+    |       |    │      Welcome to the             │
     |--(o)--|    │   generator-ui5-ts-flp-plugin   │
-   `---------´   │        generator!        │
-    ( _´U`_ )    ╰──────────────────────────╯
+   `---------´   │        generator!               │
+    ( _´U`_ )    ╰─────────────────────────────────╯
     /___A___\   /
      |  ~  |
    __'.___.'__
