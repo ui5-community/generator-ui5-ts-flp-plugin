@@ -2,7 +2,7 @@
   "_version": "1.21.0",
 
   "sap.app": {
-    "id": "<%= appId %>",
+    "id": "<%= pluginId %>",
     "type": "component",
     "i18n": "i18n/i18n.properties",
     "title": "{{appTitle}}",
@@ -64,7 +64,7 @@
       "i18n": {
         "type": "sap.ui.model.resource.ResourceModel",
         "settings": {
-          "bundleName": "<%= appId %>.i18n.i18n",
+          "bundleName": "<%= pluginId %>.i18n.i18n",
           "supportedLocales": ["en", "de"],
           "fallbackLocale": "en",
           "async": true

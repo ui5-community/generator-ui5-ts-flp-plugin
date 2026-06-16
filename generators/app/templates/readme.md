@@ -1,4 +1,4 @@
-# UI5 Application <%= namespace %>
+# Fiori Plugin <%= namespace %>
 
 Insert the purpose of this project and some interesting info here...
 
@@ -34,11 +34,11 @@ As shown in the terminal after executing this command, the app is then running o
 
 (When using yarn, do `yarn start` instead. Also for all commands below, you can just replace `npm` by `yarn` in this case.)
 
-## Debug the App
+## Debug the Plugin
 
 In the browser, you can directly debug the original TypeScript code, which is supplied via sourcemaps (need to be enabled in the browser's developer console if it does not work straight away). If the browser doesn't automatically jump to the TypeScript code when setting breakpoints, use e.g. `Ctrl`/`Cmd` + `P` in Chrome to open the `*.ts` file you want to debug.
 
-## Build the App
+## Build the Plugin
 
 ### Unoptimized (but quick)
 

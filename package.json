@@ -19,7 +19,8 @@
     "ui5",
     "openui5",
     "sapui5",
-    "application",
+    "fiori",
+    "plugin",
     "typescript"
   ],
   "author": "Mario Kernich",

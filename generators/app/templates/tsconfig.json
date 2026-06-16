@@ -11,7 +11,7 @@
     "rootDir": "./webapp",
     "types": ["<%= tstypes %>", "@types/qunit"],
     "paths": {
-      "<%= appURI %>/*": ["./webapp/*"],
+      "<%= pluginURI %>/*": ["./webapp/*"],
       "unit/*": ["./webapp/test/unit/*"],
       "integration/*": ["./webapp/test/integration/*"]
     }

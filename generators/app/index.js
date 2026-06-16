@@ -13,7 +13,7 @@ import upath from "upath";
 const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
 
 export default class extends Generator {
-  static displayName = "Create a new UI5 application with TypeScript";
+  static displayName = "Create a new Fiori plugin with TypeScript";
   static nestedGenerators = ["wdi5"]; // add wdi5 support
 
   constructor(args, opts) {
@@ -27,7 +27,7 @@ export default class extends Generator {
       // "pluginNamespace" is used here to avoid a conflict with the "namespace" property, which is natively in this.options, where these arguments also end up
       type: String,
       required: false,
-      description: "The namespace for the application, e.g. com.myorg.myapp"
+      description: "The namespace for the plugin, e.g. com.myorg.myplugin"
     });
 
     this.argument("frameworkVersion", {
@@ -39,21 +39,19 @@ export default class extends Generator {
     this.argument("author", {
       type: String,
       required: false,
-      description: "The author of the application, e.g. John Doe"
+      description: "The author of the plugin, e.g. John Doe"
     });
 
     this.argument("newdir", {
       type: Boolean,
       required: false,
-      description:
-        "Whether a new directory should be created for the application"
+      description: "Whether a new directory should be created for the plugin"
     });
 
     this.argument("initrepo", {
       type: Boolean,
       required: false,
-      description:
-        "Whether to initialize a local git repository for the application"
+      description: "Whether to initialize a local git repository for the plugin"
     });
   }
 
@@ -139,7 +137,7 @@ export default class extends Generator {
       prompts.push({
         type: "input",
         name: "namespace",
-        message: "Enter your application id (namespace)?",
+        message: "Enter your plugin id (namespace)?",
         validate: (s) => {
           if (/^[a-z0-9][a-z0-9_.]*$/g.test(s)) {
             return true;
@@ -147,7 +145,7 @@ export default class extends Generator {
 
           return "Please use lowercase alpha numeric characters, underscores and dots only for the namespace.";
         },
-        default: "com.myorg.myapp"
+        default: "com.myorg.myplugin"
       });
     }
 
@@ -190,7 +188,7 @@ export default class extends Generator {
       prompts.push({
         type: "input",
         name: "author",
-        message: "Who is the author of the application?",
+        message: "Who is the author of the plugin?",
         default: async () => (await this.git.name()) ?? ""
       });
     }
@@ -199,8 +197,7 @@ export default class extends Generator {
       prompts.push({
         type: "confirm",
         name: "newdir",
-        message:
-          "Would you like to create a new directory for the application?",
+        message: "Would you like to create a new directory for the plugin?",
         default: true
       });
     }
@@ -210,7 +207,7 @@ export default class extends Generator {
         type: "confirm",
         name: "initrepo",
         message:
-          "Would you like to initialize a local git repository for the application?",
+          "Would you like to initialize a local git repository for the plugin?",
         default: true
       });
     }
@@ -224,7 +221,7 @@ export default class extends Generator {
         });
       props.namespace = props.namespace || props.pluginNamespace; // use "namespace" from here ("pluginNamespace" was used in the CLI to prevent a conflict with native this.options content)
 
-      // use the namespace and the application name as new subdirectory
+      // use the namespace and the plugin name as new subdirectory
       if (props.newdir) {
         this.destinationRoot(this.destinationPath(`${props.namespace}`));
       }
@@ -240,9 +237,9 @@ export default class extends Generator {
       );
       this.config.set("tstypesVersion", props.frameworkVersion);
 
-      // appId + appURI
-      this.config.set("appId", `${props.namespace}`);
-      this.config.set("appURI", `${props.namespace.split(".").join("/")}`);
+      // pluginId + pluginURI
+      this.config.set("pluginId", `${props.namespace}`);
+      this.config.set("pluginURI", `${props.namespace.split(".").join("/")}`);
 
       // CDN domain
       this.config.set("cdnDomain", "ui5.sap.com");

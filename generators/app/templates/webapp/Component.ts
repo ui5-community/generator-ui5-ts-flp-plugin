@@ -6,7 +6,7 @@ import { Button$PressEvent } from "sap/m/Button";
 import MessageToast from "sap/m/MessageToast";
 
 /**
- * @namespace <%= appId %>
+ * @namespace <%= pluginId %>
  */
 export default class Component extends UIComponent {
   public static metadata = {

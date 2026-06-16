@@ -1,7 +1,7 @@
 {
   "name": "<%= namespace %>",
   "version": "1.0.0",
-  "description": "UI5 Application: <%= namespace %>",
+  "description": "Fiori Plugin: <%= namespace %>",
   "author": "<%= author %>",
   "license": "Apache-2.0",
   "scripts": {
