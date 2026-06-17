@@ -8,7 +8,7 @@
 
 ```bash
 $> npm i -g yo generator-easy-ui5
-$> yo easy-ui5 flp-plugin
+$> yo easy-ui5 ts-flp-plugin
 
      _-----_
     |       |    ╭──────────────────────────╮
