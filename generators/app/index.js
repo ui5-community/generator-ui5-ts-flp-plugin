@@ -30,6 +30,13 @@ export default class extends Generator {
       description: "The namespace for the plugin, e.g. com.myorg.myplugin"
     });
 
+    this.argument("pluginType", {
+      type: String,
+      required: false,
+      description:
+        "The type of the plugin: 'headerButton', 'userMenuAction' or 'backgroundService'"
+    });
+
     this.argument("frameworkVersion", {
       type: String,
       required: false,
@@ -67,6 +74,13 @@ export default class extends Generator {
 
     const minFwkVersion = {
       SAPUI5: "1.90.0" //"1.77.0"
+    };
+
+    // allowed plugin types (value => display label)
+    const pluginTypes = {
+      headerButton: "Launchpad Header Button",
+      userMenuAction: "User Menu Action",
+      backgroundService: "Background Service"
     };
 
     const getTypePackageFor = function (framework, version = "99.99.99") {
@@ -130,6 +144,20 @@ export default class extends Generator {
       }
     }
 
+    if (
+      this.options.pluginType &&
+      !Object.keys(pluginTypes).includes(this.options.pluginType)
+    ) {
+      this.log(
+        chalk.red(
+          `The provided plugin type "${this.options.pluginType}" is not valid! Allowed values: ${Object.keys(
+            pluginTypes
+          ).join(", ")}.`
+        )
+      );
+      delete this.options.pluginType;
+    }
+
     // prepare the needed prompts
     const prompts = [];
     if (!this.options.pluginNamespace) {
@@ -146,6 +174,19 @@ export default class extends Generator {
           return "Please use lowercase alpha numeric characters, underscores and dots only for the namespace.";
         },
         default: "com.myorg.myplugin"
+      });
+    }
+
+    if (!this.options.pluginType) {
+      prompts.push({
+        type: "list",
+        name: "pluginType",
+        message: "Which plugin type do you want to create?",
+        choices: Object.entries(pluginTypes).map(([value, name]) => ({
+          name,
+          value
+        })),
+        default: "headerButton"
       });
     }
 
@@ -275,6 +316,18 @@ export default class extends Generator {
       this.config.set(
         "lt1_124_0",
         semver.lt(props.frameworkVersion, "1.124.0")
+      );
+
+      // plugin type flags for templates
+      this.config.set("pluginType", props.pluginType);
+      this.config.set("isHeaderButton", props.pluginType === "headerButton");
+      this.config.set(
+        "isUserMenuAction",
+        props.pluginType === "userMenuAction"
+      );
+      this.config.set(
+        "isBackgroundService",
+        props.pluginType === "backgroundService"
       );
     });
   }

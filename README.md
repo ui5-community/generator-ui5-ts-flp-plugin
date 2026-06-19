@@ -42,6 +42,29 @@ $> yo ./generator-ui5-ts-flp-plugin
  ´   `  |° ´ Y `
 ```
 
+## Features
+
+### Plugin type selection
+
+During the generation the generator asks you which kind of FLP plugin you want to scaffold. Choose one of the predefined setups:
+
+- **Launchpad Header Button** – registers an item in the shell header (e.g. via `createHeaderItem` / `addHeaderEndItem`).
+- **User Menu Action** – adds an entry to the user actions menu in the shell.
+- **Background Service** – a headless plugin that does not render any UI and is meant to perform background work once the shell container is available.
+
+The selected type is stored in the generator configuration and the generated `Component.ts` is pre-filled with a matching runnable skeleton, so you can start implementing your business logic right away.
+
+### UI5 version aware: Extension API with Renderer fallback
+
+The generator targets the SAPUI5 framework version that you provide and adapts the generated code to the available APIs:
+
+- For **UI5 >= 1.120** the modern [`sap.ushell.services.Extension`](https://ui5.sap.com/#/api/sap.ushell.services.Extension) API is used (`Container.getServiceAsync("Extension")` together with `createHeaderItem` / `createUserAction`). This is the recommended way to extend the Fiori Launchpad on newer releases.
+- For **older UI5 versions** the generator falls back to direct renderer access via `sap.ushell.renderers.fiori2.Renderer` (`addHeaderEndItem`, `addUserAction`, …) so the same plugin types can also be built against legacy launchpads.
+
+You don't have to choose the API yourself – the generator picks the right one based on the framework version you entered during scaffolding.
+
+**Note:** Fiori Launchpad plugins require SAPUI5. They are not available in OpenUI5, because sap.ushell is not part of the OpenUI5 distribution.
+
 ## Support
 
 Please use the GitHub bug tracking system to post questions, bug reports or to create pull requests.
