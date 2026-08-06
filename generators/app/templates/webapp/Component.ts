@@ -16,15 +16,18 @@ export default class Component extends UIComponent {
     interfaces: ["sap.ui.core.IAsyncContentCreation"]
   };
 
+  public init() {
+    super.init();
+    void this.handleInit();
+  }
+
   <% if (isHeaderButton) { %>
   // ============================================================
   // Plugin type: Launchpad Header Button
   // ============================================================
   <% if (gte1_120_0) { %>
 
-  public async init() {
-    super.init();
-
+  private async handleInit() {
     // load translations from i18n model
     const resourceModel = this.getModel("i18n") as ResourceModel;
     const resourceBundle = await resourceModel.getResourceBundle();
@@ -47,9 +50,7 @@ export default class Component extends UIComponent {
 
   <% } else { %>
 
-  public async init() {
-    super.init();
-
+  private async handleInit() {
     // load translations from i18n model
     const resourceModel = this.getModel("i18n") as ResourceModel;
     const resourceBundle = await resourceModel.getResourceBundle();
@@ -85,9 +86,7 @@ export default class Component extends UIComponent {
   // ============================================================
   <% if (gte1_120_0) { %>
 
-  public async init() {
-    super.init();
-
+  private async handleInit() {
     // load translations from i18n model
     const resourceModel = this.getModel("i18n") as ResourceModel;
     const resourceBundle = await resourceModel.getResourceBundle();
@@ -110,9 +109,7 @@ export default class Component extends UIComponent {
 
   <% } else { %>
 
-  public async init() {
-    super.init();
-
+  private async handleInit() {
     // load translations from i18n model
     const resourceModel = this.getModel("i18n") as ResourceModel;
     const resourceBundle = await resourceModel.getResourceBundle();
@@ -154,9 +151,7 @@ export default class Component extends UIComponent {
   // ============================================================
   <% if (gte1_120_0) { %>
 
-  public async init() {
-    super.init();
-
+  private async handleInit() {
     // load translations from i18n model
     const resourceModel = this.getModel("i18n") as ResourceModel;
     const resourceBundle = await resourceModel.getResourceBundle();
@@ -175,9 +170,7 @@ export default class Component extends UIComponent {
 
   <% } else { %>
 
-  public init() {
-    super.init();
-
+  private async handleInit() {
     // load translations from i18n model
     const resourceModel = this.getModel("i18n") as ResourceModel;
     resourceModel.getResourceBundle().then((resourceBundle) => {
