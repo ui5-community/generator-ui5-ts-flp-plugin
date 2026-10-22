@@ -1,2 +1,5 @@
 # Ignore test files
 test/*/
+
+# Ignore templates (EJS placeholders are no valid code)
+generators/*/templates/
