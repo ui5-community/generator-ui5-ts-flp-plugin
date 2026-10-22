@@ -42,6 +42,19 @@ $> yo ./generator-ui5-ts-flp-plugin
  ´   `  |° ´ Y `
 ```
 
+## Usage with the SAP Application Wizard
+
+Install the **Application Wizard** extension from **SAP OSS** in VS Code (or use SAP Business Application Studio) and run the `Open Template Wizard` command.
+
+The wizard only finds generators in the global **npm** folder (`npm root -g`) or in the folder of the setting `ApplicationWizard.installationLocation`. Link a local working copy into the global npm folder:
+
+```bash
+$> git clone https://github.com/ui5-community/generator-ui5-ts-flp-plugin.git
+$> cd generator-ui5-ts-flp-plugin
+$> npm install
+$> npm link
+```
+
 ## Features
 
 ### Plugin type selection
@@ -64,6 +77,17 @@ The generator targets the SAPUI5 framework version that you provide and adapts t
 You don't have to choose the API yourself – the generator picks the right one based on the framework version you entered during scaffolding.
 
 **Note:** Fiori Launchpad plugins require SAPUI5. They are not available in OpenUI5, because sap.ushell is not part of the OpenUI5 distribution.
+
+## Development
+
+```bash
+$> npm install
+$> npm run lint
+$> npm test
+```
+
+- `npm test` runs the automated tests in `test/` with `node --test`. They check that the generator can be loaded by the SAP Application Wizard and run the generator with [yeoman-test](https://github.com/yeoman/yeoman-test) for all plugin types (without `npm install`).
+- `npm run generate` runs the generator of the working copy interactively (requires a global `yo`) inside the `test/` folder.
 
 ## Support
 
