@@ -66,7 +66,9 @@ describe("generator", () => {
         ".gitignore",
         "webapp/Component.ts",
         "webapp/manifest.json",
-        "webapp/test/flpSandbox.html"
+        "webapp/test/flpSandbox.html",
+        "webapp/test/flpSandbox.config.js",
+        "webapp/test/flpSandbox.ts"
       ]) {
         assert.ok(
           fs.existsSync(path.join(result.cwd, file)),
@@ -80,6 +82,17 @@ describe("generator", () => {
       assert.equal(pkg.name, "com.myorg.myplugin");
       assert.equal(pkg.author, "Jane Doe");
       assert.equal(pkg.devDependencies[tstypes], frameworkVersion);
+
+      // bootstrap parameters of the FLP sandbox: dash-case as of UI5 1.120, camelCase before
+      const sandbox = fs.readFileSync(
+        path.join(result.cwd, "webapp/test/flpSandbox.html"),
+        "utf8"
+      );
+      const newSpelling = tstypes === "@sapui5/types";
+      assert.equal(sandbox.includes("data-sap-ui-resource-roots"), newSpelling);
+      assert.equal(sandbox.includes("data-sap-ui-resourceroots"), !newSpelling);
+      assert.match(sandbox, /module:com\/myorg\/myplugin\/test\/flpSandbox"/);
+      assert.doesNotMatch(sandbox, /<script>/);
 
       const ui5Yaml = fs.readFileSync(
         path.join(result.cwd, "ui5.yaml"),
