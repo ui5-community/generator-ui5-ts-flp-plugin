@@ -2,8 +2,7 @@ import UIComponent from "sap/ui/core/UIComponent";
 import ResourceModel from "sap/ui/model/resource/ResourceModel";
 import Container from "sap/ushell/Container";
 import MessageToast from "sap/m/MessageToast";<% if (gte1_120_0) { %>
-import Extension from "sap/ushell/services/Extension";<% if (isHeaderButton || isUserMenuAction) { %>
-import { Button$PressEvent } from "sap/m/Button";<% } %><% } else { %>
+import Extension from "sap/ushell/services/Extension";<% } else { %>
 import Renderer from "sap/ushell/renderers/fiori2/Renderer";
 import ObjectPath from "sap/base/util/ObjectPath";<% } %>
 
@@ -39,7 +38,7 @@ export default class Component extends UIComponent {
     const item = await extension.createHeaderItem({
       icon: "sap-icon://hello-world",
       text: resourceBundle.getText("btnText"),
-      press: (event: Button$PressEvent) => {
+      press: () => {
         MessageToast.show("Hello World");
       }
     });
@@ -98,7 +97,7 @@ export default class Component extends UIComponent {
     const item = await extension.createUserAction({
       icon: "sap-icon://hello-world",
       text: resourceBundle.getText("btnText"),
-      press: (event: Button$PressEvent) => {
+      press: () => {
         MessageToast.show("User menu action triggered");
       }
     });

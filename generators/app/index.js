@@ -10,11 +10,13 @@ import packageJson from "package-json";
 import semver from "semver";
 import upath from "upath";
 
+const __filename = url.fileURLToPath(import.meta.url);
 const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
 
-export default class extends Generator {
+export default class FlpPluginGenerator extends Generator {
   static displayName = "Create a new Fiori plugin with TypeScript";
   static nestedGenerators = ["wdi5"]; // add wdi5 support
+  static resolved = __filename;
 
   constructor(args, opts) {
     super(args, opts, {
@@ -60,6 +62,37 @@ export default class extends Generator {
       required: false,
       description: "Whether to initialize a local git repository for the plugin"
     });
+
+    // step name of the SAP Application Wizard (Yeoman UI): without it the wizard names
+    // the step after its first question, e.g. "Namespace"
+    this.setPromptsCallback = (setPromptList) =>
+      setPromptList(this._getWizardSteps());
+  }
+
+  /**
+   * Steps of the SAP Application Wizard, one per this.prompt() call in prompting().
+   * An empty prompt call (all values given as arguments) shows no step in the wizard.
+   * @returns {{name: string, description: string}[]} name and description of each step
+   */
+  _getWizardSteps() {
+    const promptedArgs = [
+      "pluginNamespace",
+      "pluginType",
+      "frameworkVersion",
+      "author",
+      "newdir",
+      "initrepo"
+    ];
+    if (promptedArgs.every((name) => this.options[name] !== undefined)) {
+      return [];
+    }
+    return [
+      {
+        name: "Plugin Configuration",
+        description:
+          "Namespace, plugin type and UI5 version of the Fiori plugin"
+      }
+    ];
   }
 
   prompting() {
@@ -208,8 +241,10 @@ export default class extends Generator {
               })
             ).version;
           } catch {
-            chalk.red(
-              "Failed to lookup latest version for ${npmPackage}! Fallback to min version..."
+            this.log(
+              chalk.red(
+                `Failed to lookup latest version for ${npmPackage}! Fallback to min version...`
+              )
             );
             return minFwkVersion["SAPUI5"];
           }
@@ -310,6 +345,10 @@ export default class extends Generator {
         semver.gte(props.frameworkVersion, "1.120.0")
       );
       this.config.set(
+        "gte1_136_0",
+        semver.gte(props.frameworkVersion, "1.136.0")
+      );
+      this.config.set(
         "gte1_142_0",
         semver.gte(props.frameworkVersion, "1.142.0")
       );
@@ -355,6 +394,9 @@ export default class extends Generator {
 
   install() {
     this.config.set("setupCompleted", true);
+    if (this.options.skipInstall) {
+      return;
+    }
     this.spawnSync("npm", ["install"], {
       cwd: this.destinationPath()
     });
@@ -378,3 +420,9 @@ export default class extends Generator {
     }
   }
 }
+
+// require() of this ES module (Node.js >= 22) returns the generator class instead of the frozen
+// module namespace: yeoman-environment v3 (used first by the SAP Application Wizard / Yeoman UI)
+// assigns properties like "resolved" to it, which fails on a module namespace. With the class,
+// the version check of yeoman-generator lets Yeoman UI fall back to yeoman-environment v6.
+export { FlpPluginGenerator as "module.exports" };

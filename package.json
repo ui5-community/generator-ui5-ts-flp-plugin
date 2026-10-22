@@ -1,6 +1,6 @@
 {
   "name": "generator-ui5-ts-flp-plugin",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Yeoman-based (sub-)generator for a basic UI5 Fiori plugin based on TypeScript",
   "main": "generators/app/index.js",
   "type": "module",
@@ -10,9 +10,10 @@
     "lint:staged": "lint-staged",
     "format": "prettier --write .",
     "format:staged": "pretty-quick --staged --verbose",
-    "test": "cd test && yo ../generators/app/index.js",
+    "test": "node --test \"test/**/*.test.js\"",
     "prepare": "node ./.husky/skip.js || husky",
-    "hooks:pre-commit": "npm run format:staged && npm run lint:staged"
+    "hooks:pre-commit": "npm run format:staged && npm run lint:staged",
+    "generate": "cd test && yo ../generators/app/index.js"
   },
   "keywords": [
     "yeoman-generator",
@@ -34,33 +35,33 @@
   },
   "homepage": "https://github.com/ui5-community/generator-ui5-ts-flp-plugin#readme",
   "dependencies": {
-    "chalk": "^5.6.2",
+    "chalk": "^6.0.1",
     "glob": "13.0.6",
-    "or": "^0.2.0",
     "package-json": "^10.0.1",
-    "semver": "^7.8.4",
-    "upath": "3.0.7",
-    "yeoman-generator": "8.2.2",
+    "semver": "^7.8.5",
+    "upath": "3.0.8",
+    "yeoman-generator": "10.2.1",
     "yosay": "3.0.0"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@prettier/plugin-xml": "^3.4.2",
-    "eslint": "10.5.0",
-    "eslint-plugin-jsdoc": "63.0.4",
-    "globals": "17.6.0",
+    "@yeoman/adapter": "^5.1.1",
+    "eslint": "10.13.0",
+    "eslint-plugin-jsdoc": "65.4.0",
+    "globals": "17.13.0",
     "husky": "^9.1.7",
-    "lint-staged": "17.0.7",
-    "prettier": "^3.8.4",
+    "lint-staged": "17.6.0",
+    "prettier": "^3.9.10",
     "prettier-plugin-properties": "^0.3.1",
     "pretty-quick": "^4.2.2",
-    "yeoman-assert": "^3.1.1",
-    "yeoman-test": "11.6.0"
+    "yeoman-environment": "^8.5.0",
+    "yeoman-test": "11.8.2"
   },
   "overrides": {
     "minimist": ">=1.2.6"
   },
   "lint-staged": {
-    "*.js": "eslint --fix"
+    "*.js": "eslint --fix --no-warn-ignored --config eslint.config.js"
   }
 }
